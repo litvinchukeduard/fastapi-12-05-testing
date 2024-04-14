@@ -31,7 +31,7 @@ class Recipe(Base):
     instructions = Column(String(255), nullable=False)
     created_at = Column(DateTime(timezone=True), default=func.now())
     igredients: Mapped[List['Ingredient']] = relationship(
-        secondary=recipe_m2m_ingredient, back_populates="recipes"
+        secondary=recipe_m2m_ingredient
     )
 
 
@@ -41,7 +41,7 @@ class Ingredient(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(255), nullable=False, unique=True)
     units: Mapped[List['Unit']] = relationship(
-        secondary=ingredient_m2m_unit, back_populates="ingredients"
+        secondary=ingredient_m2m_unit
     )
 
 
