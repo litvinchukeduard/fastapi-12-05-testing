@@ -33,6 +33,8 @@ class Recipe(Base):
     igredients: Mapped[List['Ingredient']] = relationship(
         secondary=recipe_m2m_ingredient
     )
+    user_id = Column(Integer, ForeignKey('users.id'))
+    user = relationship('User', back_populates='recipes')
 
 
 class Ingredient(Base):
@@ -61,3 +63,14 @@ class UnitQuantity(Base):
     recipe_id = Column("recipe_id", Integer, ForeignKey("recipes.id"), nullable=False)
     ingredient_id = Column("ingredient_id", Integer, ForeignKey("ingredients.id"), nullable=False)
     unit_id = Column("unit_id", Integer, ForeignKey("units.id"), nullable=False)
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True)
+    email = Column(String(255), nullable=False, unique=True)
+    password = Column(String(255), nullable=False, unique=True)
+    active = Column(Boolean, nullable=False)
+    recipes: Mapped[List['Recipe']] = relationship()
+

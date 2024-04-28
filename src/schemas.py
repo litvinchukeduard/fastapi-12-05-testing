@@ -1,6 +1,6 @@
 from datetime import datetime
 from typing import List
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, Field, EmailStr, field_validator
 
 
 class IngredientBase(BaseModel):
@@ -66,3 +66,12 @@ class RecipeResponse(RecipeBase):
 
     class Config:
         orm_mode = True
+
+class UserModel(BaseModel):
+    email: str = EmailStr()
+    password: str = Field(max_length=255)
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    
