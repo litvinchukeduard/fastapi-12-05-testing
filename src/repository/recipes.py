@@ -8,6 +8,18 @@ from src.schemas import RecipeModel
 
 
 async def get_recipes(skip: int, limit: int, user_id: int, db: Session) -> List[Recipe]:
+    """
+    Get a page for recipes
+
+    Arguments:
+        - skip (int): a starting number for recipes in db
+        - limit (int): upper limit for recipes
+        - user_id (int): current user id
+        - db (Session): db connection for the application
+
+    Returns:
+        List[Recipe]: a list of recipes starting from skip and ending with limit    
+    """
     return db.query(Recipe).filter(Recipe.user_id == user_id).offset(skip).limit(limit).all()
 
 

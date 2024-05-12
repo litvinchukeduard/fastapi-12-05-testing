@@ -1,8 +1,7 @@
 from typing import List
 
 from sqlalchemy import Column, Integer, String, Boolean, Table, ForeignKey, func
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import Mapped, relationship
+from sqlalchemy.orm import Mapped, relationship, declarative_base
 from sqlalchemy.sql.sqltypes import DateTime
 
 Base = declarative_base()
@@ -70,7 +69,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)
     email = Column(String(255), nullable=False, unique=True)
-    password = Column(String(255), nullable=False, unique=True)
+    password = Column(String(255), nullable=False)
     active = Column(Boolean, nullable=False)
     recipes: Mapped[List['Recipe']] = relationship()
 

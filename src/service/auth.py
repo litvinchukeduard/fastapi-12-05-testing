@@ -16,7 +16,8 @@ JWT_SECRET = "JWT_SECRET"
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/login")
 
 async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_postgres_db)):
-    user_email = decode_token(token).get('sub')
+    token = await decode_token(token)
+    user_email = token.get('sub')
     print(user_email)
     return await user_repository.get_user_by_email(user_email, db)
 
